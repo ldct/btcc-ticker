@@ -75,10 +75,13 @@ class BTCChina():
                 elif 'error' in resp_dict:
                     return resp_dict['error']
         else:
-            # not great error handling....
-            print "status:",response.status
-            print "reason:".response.reason
+            try:
+                print "status:",response.status
+                print "reason:".response.reason
  
+            except:
+                print "printing response - ", response
+
         return None
  
     def get_account_info(self,post_data={}):
@@ -91,7 +94,7 @@ class BTCChina():
         post_data['params']=[]
         return self._private_request(post_data)
  
-    def get_market_depth2(self,limit,post_data={}):
+    def get_market_depth2(self,limit=10,post_data={}):
         post_data['method']='getMarketDepth2'
         post_data['params']=[limit]
         return self._private_request(post_data)
